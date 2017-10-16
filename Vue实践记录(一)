@@ -58,9 +58,17 @@ const defaultImg = require('../img/header.png')
 的方式引入默认图片，然后就可以在组件中通过 defaultImg 这个常量使用默认图片了。
 
 
-七、
+七、数组项变更的不可监测性
+Vue中的数据都是动态响应的，这得益于它使用的Object.defineProperty这个方法,把所有data选项上定义的数据都转换成getter和setter，这样就能实现变化数据的
+实时响应。但是，这有一个例外，就是限制于JavaScript的能力，Vue无法对data中数组项的变化进行实时响应。例如
+data: {
+ a: 123,
+ arr: [1,2,3]
+ }
+vm.a 的变化是可以实时响应的,但 vm.arr[0]的变化是无法实时响应的。
 
 
+八、
 
 
 
