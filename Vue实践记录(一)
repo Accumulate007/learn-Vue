@@ -1,0 +1,26 @@
+一、script和style模块引入方式的区别
+在script中引入模块支持使用自定义路径方式:  ‘@/common/js/server’
+在style中引入模块需要使用相对路径方式:	‘../../common/css/style’
+这是因为script中模块引入是可以通过webpack配置项resolve中的alias参数进行自定义配置的
+而style标签中的内容需要经过style-loader和css-loader进行解析处理，webpack中暂时没有这个配置
+
+
+二、
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
