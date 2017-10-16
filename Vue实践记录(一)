@@ -25,7 +25,20 @@ Vue中的组件缓存需要借助路由元信息meta字段， meta: {keepAlive: 
 </keep-alive>
 
 
-四、
+四、Axios的post传参问题
+Axios是Vue官方推荐的ajax库，但是在实际使用中，此库的post方式传参出现了一点问题，按照官方文档的方式进行post传参会报504的状态码错误，这是参数传递的
+问题。这里，post传参需要借助Node的querystring模块进行转化。
+列如
+let querystring = require('querystring');
+Axios.post(url, querystring.stringify({
+  a: '123',
+  b: 'bbb'
+}));
+实际上经过转化后对象形式的params转化成了: a=123&b=bbb
+
+
+五、
+
 
 
 
