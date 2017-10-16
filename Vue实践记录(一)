@@ -37,8 +37,21 @@ Axios.post(url, querystring.stringify({
 实际上经过转化后对象形式的params转化成了: a=123&b=bbb
 
 
-五、
+五、proxyTable的跨域代理
+在实际开发中往往会涉及到跨域问题,Vue-cli提供了跨域代理的支持。
+在由Vue-cli生成的项目目录 config -> index.js文件中,有一项 dev 配置项，其下有一个proxyTable的配置参数，具体的配置方式如：
+'/api': {
+    target: 'http://192.168.51.34:8080',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api': ''
+    }
+}
+然后在项目中使用时就可以用 '/api' 这个字段代替 'http://192.168.51.34:8080',而且可以实现跨域成功。
+原理就是，Vue使用了http-proxy-middleware这个插件实现了跨域的代理。
 
+
+六、
 
 
 
