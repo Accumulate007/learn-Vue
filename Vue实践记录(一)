@@ -17,9 +17,15 @@ d.块级元素不能放在p标签里
 e.Li标签可以包含div,因为li和div标签都是装载内容的容器
 
 
+三、组件缓存的方式
+在Vue中经常会有些页面需要进行缓存，缓存的页面一般是那些实时交互要求不高的，数据请求不频繁的页面。
+Vue中的组件缓存需要借助路由元信息meta字段， meta: {keepAlive: true}
+<keep-alive>
+  <router-view v-if="$route.meta.keepAlive"></router-view>
+</keep-alive>
 
 
-
+四、
 
 
 
