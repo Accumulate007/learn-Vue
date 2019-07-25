@@ -22,10 +22,22 @@ const lazyComponentA = () => import('./componentA.vue');
 // 当组件被请求需要在模板中渲染的时候，才会调用lazyComponentA函数
 <lazyComponentA v-if="bool"></lazyComponentA>
 ```
+常见的Vue项目开发中，我们一般都会使用Vuex进行路由管理，我们在设置路由的时候也可以使用这种动态加载路由资源的方式。
+```
+const routes = [
+    {path: '/foo', component: () => import(./routerComponentA.vue)}
+];
+```
+webpack会配合路由的设置，拆分打包相应的资源。比如这个例子中，会产生一个foo.js的文件，只有在访问'/foo'路径的时候该资源才会被加载。</br>
 
-
-
-
-
-
-
+### 三、webpack splitChunksPlugin优化打包公共资源
+我们知道了动态加载的模式之后，其实还有一个问题，就是公共文件的加载。有些资源是每个组件都可能会用到的，这些资源该如何打包优化呢？</br>
+```
+// webpack.config.js
+optimization: {
+  splitChunks: {
+    chunks: 'all'
+    }
+}
+```
+这样就可以将公共依赖打包到同一个文件中，避免了重复的下载。
