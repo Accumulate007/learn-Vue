@@ -1,0 +1,73 @@
+Vue组件间通信，是Vue使用中的一个重点内容，有五花八门的方式可以实现父子、祖孙之间组件的通信。miaov的这门公开课主要介绍了三种组件间通信方式：
+1.props/自定义事件<br/>
+2.事件总线(Event Bus)<br/>
+3.Vuex<br/>
+简单总结下本课程介绍的方法。
+
+### props/自定义事件
+在使用.vue单文件组件的过程中，props几乎是必然会使用的一种方式，vue中父子组件的通信首当其冲就是采用props的方式。这种方式的使用也非常简单方便。
+假设我们在父组件APP.vue中，引入了子组件HelloWorld.vue
+```
+// APP.vue
+
+<template>
+  <HelloWorld msg="work hard chen" name="jack"/>
+</template>
+```
+我们直接可以通过组件属性的方式，给子组件HelloWorld.vue传递参数msg和name。然后，在HelloWorld.vue组件中通过props接收使用。
+```
+// HelloWorld.vue
+
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String,
+    name: String
+    }
+ }
+```
+这个过程是父组件向子组件传递数据，那么子组件该怎么向父组件传递数据？这就要用到自定义事件$emit了。<br/>
+首先在子组件中触发一个自定义事件。
+```
+// HelloWorld.vue
+
+<template>
+  <p @click="clickName">My name is {{ name }}</p>
+</template>
+
+<script>
+export default {
+  methods: {
+    clickName() {
+       this.$emit('click-name');  // 触发自定义事件
+    }
+  }
+}
+</script>
+```
+在父组件中监听子组件中派发的自定义事件。
+```
+// APP.vue
+
+<template>
+  <HelloWorld msg="work hard chen" name="jack" @my-click="myClickHandler"/>
+</template>
+
+<script>
+export default {
+  methods: {
+    myClickHandler() {
+       console.log('get my-click event...');
+    }
+  }
+}
+</script>
+```
+
+
+
+
+
+
+
+
