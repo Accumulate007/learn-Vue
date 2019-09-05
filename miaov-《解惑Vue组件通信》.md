@@ -1,4 +1,4 @@
-Vue组件间通信，是Vue使用中的一个重点内容，有五花八门的方式可以实现父子、祖孙之间组件的通信。miaov的这门公开课主要介绍了三种组件间通信方式：
+Vue组件间通信，是Vue使用中的一个重点内容，有五花八门的方式可以实现父子、祖孙之间组件的通信。miaov的这门公开课主要介绍了三种组件间通信方式：<br/>
 1.props/自定义事件<br/>
 2.事件总线(Event Bus)<br/>
 3.Vuex<br/>
@@ -135,22 +135,67 @@ export default {
 </script>
 ```
 
+### 父子组件双向数据流的实现
+Vue官方的建议在父子组件的传值过程中，应该始终保持数据的单向流动，也就是说父组件传递给子组件的数据，不应该在子组件中改变。但是也有一些场景下需要实现
+父子组件的双向数据流，这里提供两种方式。
 
+##### v-model
+父子组件的双向数据流首先想到的就是使用v-model。
+```
+// App.vue
 
+<template>
+  <HelloWorld v-model="modelTest"/>
+</template>
 
+```
+在子组件HelloWorld.vue中通过派发input事件的方式，实现数据的双向绑定。
+```
+// HelloWorld.vue
 
+<template>
+  <p @click="clickName">abc</p>
+</template>
 
+<script>
+export default {
+  methods: {
+    clickName() {
+       this.$emit('input', 'I will change modelTest');  // 触发input事件，并改变modelTest的值
+    }
+  }
+}
+</script>
+```
 
+##### sync
+```
+// App.vue
 
+<template>
+  <HelloWorld :age.sync="age"/>
+</template>
 
+```
 
+```
+// HelloWorld.vue
 
+<template>
+  <p @click="clickName">{{age}}</p>
+</template>
 
-
-
-
-
-
-
-
-
+<script>
+export default {
+  props: {
+    age: Number
+  },
+  methods: {
+    clickName() {
+       let a = this.age + 1;
+       this.$emit('update:age', a);  // 通过 update:age 的形式触发 age 的改变，实现双向数据绑定
+    }
+  }
+}
+</script>
+```
