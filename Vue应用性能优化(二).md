@@ -72,6 +72,66 @@ Vue.use(Button);
 Vue.use(Select);
 ```
 
+### 二、webpack配置层面优化
+
+1.使用url-loader对图片大小limit进行限制，并且对小于limit的图片转为base64格式，其余的不做操作。<br/>
+
+2.使用image-webpack-loader对大图进行压缩。<br/>
+```
+{
+	test: /.(png|jpe?g|gif|svg)(?.*)?$/,
+	use: [
+		{
+			loader: 'url-loader',
+			options: {
+      	limit: 10000,
+      	name: utils.assetsPath('img/[name].[hash:7].[ext]')
+      }
+		},
+		{
+			loader: 'image-webpack-loader',
+			options: {
+        bypassOnDebug: true
+      }
+		}
+	]
+}
+```
+
+3.减少ES6转为ES5的冗余代码。babel在进行代码转换的时候会使用很多辅助函数，如果多个源文件都引用相同的辅助函数，则会造成代码的重复。
+可以通过babel-plugin-transform-runtime插件解决这个问题。<br/>
+```
+// 首先安装插件
+npm i babel-plugin-transform-runtime --save-dev
+
+// 修改babelrc配置
+"plugins": [
+	"transform-runtime"
+]
+```
+
+4.提取公共代码。<br/>
+```
+new webpack.optimize.CommonsChunkPlugin({
+	name: 'manifest',
+	chunks: ['vendor']
+})
+```
+
+5.提取组件的css。单文件组件.vue内的css样式会以style标签的方式通过JavaScript动态的注入，这会有一些运行时开销。可以使用
+webpack + vue-loader 来对组件内的样式进行提取、压缩和缓存。<br/>
+
+6.构建结果输出分析。<br/>
+```
+// webpack.prod.conf.js中进行配置
+if (config.build.bundleAnalyzerReport) {
+  var BundleAnalyzerPlugin =   require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin());
+}
+
+// 执行打包命令后生成分析页面
+npm run build --report
+```
 
 
 
