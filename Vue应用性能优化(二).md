@@ -133,7 +133,7 @@ if (config.build.bundleAnalyzerReport) {
 npm run build --report
 ```
 
-###三、基础web技术层面优化
+### 三、基础web技术层面优化
 
 1.开启gzip压缩<br/>
 ```
