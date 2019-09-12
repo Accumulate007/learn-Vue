@@ -133,5 +133,25 @@ if (config.build.bundleAnalyzerReport) {
 npm run build --report
 ```
 
+###三、基础web技术层面优化
 
+1.开启gzip压缩<br/>
+```
+// 安装 compression
+npm i compression --save
 
+// 添加逻辑代码
+let compression = require('compression');
+const app = express();
+
+app.use(compression());
+```
+
+2.对静态资源进行缓存。强制缓存和协商缓存。<br/>
+
+3.使用CDN<br/>
+
+4.使用Chrome的Performance面板查找页面性能问题。<br/>
+a).在Performance面板中点击Record按钮开始录制<br/>
+b).刷新页面或者展开某个节点<br/>
+c).点击Stop停止录制
