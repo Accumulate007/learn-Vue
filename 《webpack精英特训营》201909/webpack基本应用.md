@@ -46,8 +46,21 @@ npx webpack --mode development
 
 npx是npm 5.2之后增加的一个命令，通过运行'npx webpack'，可以帮你执行'node_modules/bin'路径下的对应程序。而'--mode development'则是传递给webpack的配置参数，代表了打包的方式是开发模式。上面说过，webpack4.0版本后同时需要安装一个webpack-cli，这里'--mode'传递的配置参数就是由webpack-cli进行解析并传递给webpack的。
 
+### 3.配置package.json中的scripts
+如果我们每次运行wbepack都需要在命令行中输入一段命令，进行打包，以及打包参数的配置，那就太麻烦了。我们需要在一个特定的地方，把相对应的配置都书写好，然后通过一个简单的命令映射到这个配置，执行相关的打包，这样不就更加简洁高效了吗。
 
+package.json文件夹中"scripts"参数就是做这个事情的。打开package.json文件。
+```javascript
+"scripts": {
+  "dev": "webpack --mode development"
+}
+```
+我们将上面npx运行的命令，设置在"scripts"中，并且给这行命令一个映射的名称"dev"，代表的是我们在开发环境中进行的打包。
 
-
+"scripts"中设置的命令，都可以通过"npm run xxx"的方式进行运行。所以，我们在命令行工具中运行
+```javascript
+npm run dev
+```
+运行的结果跟之前我们运行npx是一样的，在dist文件夹下生成了打包后的文件main.js。
 
 
