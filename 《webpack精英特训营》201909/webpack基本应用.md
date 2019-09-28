@@ -16,7 +16,7 @@ npm init
 ```javascript
 npm install webpack webpack-cli -D
 ```
-
+安装好webpack之后，我们还需要在webpack-project目录下创建一个src文件夹，用于存放真正的项目代码。并且，我们在src目录下创建一个index.js文件，在运行webpack的时候，需要一个入口文件，webpack默认会寻找项目目录下'src/index.js'的文件作为入口文件。至此，一个最基础的基于webpack的项目就搭好了。
 
 
 
