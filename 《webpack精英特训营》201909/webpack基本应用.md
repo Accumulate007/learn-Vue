@@ -44,6 +44,8 @@ npx webpack --mode development
 
 这样并不能直观的看到效果，因为打包后的结果是一个JS文件。我们在'dist'目录下创建一个'index.html'文件，并且在index.html文件中引入这个打包后的main.js文件，这样我们就能在浏览器中运行index.html文件，并且查看我们书写的代码了。在浏览器中运行index.html文件后我们在控制台中发现，打印了'hello,this is index.js'这句话，说明打包后的文件没有问题。
 
+npx是npm 5.2之后增加的一个命令，通过运行'npx webpack'，可以帮你执行'node_modules/bin'路径下的对应程序。而'--mode development'则是传递给webpack的配置参数，代表了打包的方式是开发模式。上面说过，webpack4.0版本后同时需要安装一个webpack-cli，这里'--mode'传递的配置参数就是由webpack-cli进行解析并传递给webpack的。
+
 
 
 
