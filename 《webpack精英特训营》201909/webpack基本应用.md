@@ -63,4 +63,40 @@ npm run dev
 ```
 运行的结果跟之前我们运行npx是一样的，在dist文件夹下生成了打包后的文件main.js。
 
+### 4.认识webpack.config.js
+在之前我们使用webpack的过程中，只是简单的通过命令行传递了诸如"--mode development"这样的配置，但其实webpack是一个非常庞大复杂的打包工具，有着繁多的配置项。这么多的配置功能，显然是不可能通过命令行的方式进行配置的。所以webpack需要一个单独的配置文件，这个文件就是webpack.config.js。
+
+在我们运行webpack进行打包的时候，webpack默认会去寻找项目根目录下的webpack.config.js文件，并读取该文件中相关的配置参数。我们在项目目录下添加该文件。
+```javascript
+├── src   # 源码目录
+│   ├
+│   └── index.js
+|—— webpack.config.js
+|—— package.json
+```
+webpack.config.js文件中默认导出一个对象，该对象包含了所有webpack相关的自定义配置。
+```javascript
+module.exports = {
+  entry: "",  // 定义入口文件
+  output: {
+    filename: "main.js",  // 定义打包后的文件名
+    path: ""              // 定义打包后文件的输出路径
+  },
+  module: {
+    // 配置loader的使用
+  },
+  plugins: [
+    // 配置plugin的使用
+  ]
+}
+```
+
+
+
+
+
+
+
+
+
 
