@@ -6,6 +6,11 @@ wbepack是一个基于NodeJS的模块打包器，主要有两个核心的功能�
 
 ### 1.创建一个webpack项目
 
+#### 1.1初始化一个项目
+首先要创建一个项目的文件夹，我们本文就以webpack-project指代项目的文件夹。创建好文件夹后，进入该文件夹，并初始化npm。
+```javascript
+npm init
+```
 
 
 
