@@ -74,6 +74,8 @@ npm run dev
 |—— webpack.config.js
 |—— package.json
 ```
+
+#### 4.1书写方式一
 webpack.config.js文件中默认导出一个对象，该对象包含了所有webpack相关的自定义配置。
 ```javascript
 module.exports = {
@@ -90,10 +92,48 @@ module.exports = {
   ]
 }
 ```
+以上就是webpack.config.js最基本的配置格式，包含了四个最重要的配置项：入口、出口、loader和plugins。可以说webpack的使用基本就是围绕着这几个配置项目进行不同的使用的。
 
+#### 4.2书写方式二
+webpack.config.js中的导出对象，还可以使用函数返回的书写方式。并且这个函数还包含了一些默认的参数，我们可以从这个参数中获取一些配置信息。
 
+并且通过这种方式，我们可以将webpack.config.js拆分成三个文件：
+-1)基础配置(base)，对应的文件webpack.base.js
+-2)开发环境配置(dev)，对应的文件webpack.dev.js
+-3)生产环境配置(prod)，对应的文件webpack.prod.js
+我们在项目根目录下新建一个build文件夹，并且将这个三个webpack的配置文件放入到其中。在我们运行webpack的时候，统一去执行webpack.base.js中的配置，该文件中的配置代码如下。
 
+```javascript
+const dev = require('./webpack.dev.js');
+const prod = require('./webpack.prod.js');
 
+module.exports = (env) => {
+  // env是一个环境变量
+  let isDev = env.development;  // 这里的env.development参数，是在package.json文件中scripts配置项中传递的
+  
+  const base = {
+    entry: "",
+    output: "",
+    module: {},
+    plugins: []
+  }
+  
+  if(isDev) {
+    return merge(base, dev);
+  } else {
+    return merge(base, prod);
+  }
+}
+```
+
+对应的，我们在package.json中"scripts"的配置如下。
+```javascript
+"scripts": {
+    "dev": "webpack --env.development --config ./build/webpack.base.js",
+    "build": "webpack --env.production --config ./build/webpack.base.js"
+  }
+```
+这样我们在命令行中运行"npm run dev"就会执行开发环境下的打包，而运行"npm run build"则会执行生产环境下的打包。
 
 
 
