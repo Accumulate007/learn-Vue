@@ -69,6 +69,24 @@ keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状�
 
 3).对应两个钩子函数 activated 和 deactivated ，当组件被激活时，触发钩子函数 activated，当组件被移除时，触发钩子函数 deactivated。
 
+#### 5.v-model 的原理
+我们在 vue 项目中主要使用 v-model 指令在表单 input、textarea、select 等元素上创建双向数据绑定，我们知道 v-model 本质上不过是语法糖，v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
+
+-input 和 textarea 元素使用 value 属性和 input 事件；
+
+-checkbox 和 radio 使用 checked 属性和 change 事件；
+
+-select 字段将 value 作为 prop 并将 change 作为事件
+
+
+
+
+
+
+
+
+
+
 
 
 
