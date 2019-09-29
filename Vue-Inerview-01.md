@@ -103,7 +103,18 @@ methods: {
 },
 ```
 
+#### 6.Vue组件的通信方式有哪些，分别适用于什么情况？
+1).props/emit(): 适用于父子组件通信
 
+2).ref与$parent/$children：适用于父子组件通信
+
+3).EventBus($emit/$on)：适用于父子、隔代、兄弟组件通信
+
+4).$attrs/$listeners：适用于隔代组件通信
+
+5).provide / inject：适用于隔代组件通信
+
+6).Vuex: 适用于父子、隔代、兄弟组件通信
 
 
 
