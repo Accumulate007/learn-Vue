@@ -10,8 +10,16 @@
 -前后端分离，职责清晰，前端负责进行交互逻辑，后端负责处理数据
 
 缺点：
--
+-初次加载耗时较多；
+-无法实现浏览器的前进后退功能：因为单页应用全部都是在一个HTML页面内；
+-不利于SEO：因为所有内容都在一个页面内动态的加载显示。
 
+#### 2.Vue父组件和子组件的生命周期钩子函数的执行顺序？
+Vue父子组件生命周期狗子函数分为四种情况：
+-1.渲染加载过程：父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted。
+-2.子组件更新过程：父 beforeUpdate -> 子 beforeUpdate -> 子 updated -> 父 updated。
+-3.父组件更新过程：父 beforeUpdate -> 父 updated。
+-4.销毁过程：父 beforeDestroy -> 子 beforeDestroy -> 子 destroyed -> 父 destroyed。
 
 
 
