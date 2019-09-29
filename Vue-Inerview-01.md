@@ -32,9 +32,32 @@ Vue父子组件生命周期狗子函数分为四种情况：
 -4.销毁过程：父 beforeDestroy -> 子 beforeDestroy -> 子 destroyed -> 父 destroyed。
 
 #### 3.父组件中如何监听子组件的生命周期？
+**方式一**
+```javascript
+// Parent.vue
+<Child @mounted="doSomething"/>
 
+// Child.vue
+mounted() {
+  this.$emit('mounted');
+}
 
+```
 
+**方式二**
+```javascript
+// Parent.vue
+<Child @hook:mounted="doSomething"/>
+
+doSomething() {
+  console.log('Parent.vue do some thing...');
+}
+
+// Child.vue
+mounted() {
+  console.log('Chile.vue call mounted~~~');
+}
+```
 
 
 
