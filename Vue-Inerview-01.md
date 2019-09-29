@@ -127,8 +127,18 @@ hash 路由模式的实现主要是基于下面几个特性：
 
 4）.我们可以使用 hashchange 事件来监听 hash 值的变化，从而对页面进行跳转
 
+HTML5 提供了 History API 来实现 URL 的变化。其中做最主要的 API 有以下两个：history.pushState() 和 history.repalceState()。前者是新增一个历史记录，后者是直接替换当前的历史记录。
+```javascript
+window.history.pushState(null, null, path);
+window.history.replaceState(null, null, path);
+```
+history 路由模式的实现主要基于存在下面几个特性：
 
+1).pushState 和 repalceState 两个 API 来操作实现 URL 的变化
 
+2).可以使用 popstate 事件来监听 url 的变化，从而对页面进行跳转
+
+3).history.pushState() 或 history.replaceState() 不会触发 popstate 事件，这时我们需要手动触发页面跳转
 
 
 
