@@ -85,9 +85,23 @@ keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状�
 <input v-bind:value="something" v-on:input="something = $event.target.value">
 ```
 
+如果在自定义组件中，v-model 默认会利用名为 value 的 prop 和名为 input 的事件(一个组件只能使用一个v-modle)，如下所示：
+```javascript
+// 父组件
+<ModelChild v-model="message"></ModelChild>
 
+// 子组件
+<div>{{value}}</div>
 
-
+props:{
+    value: String
+},
+methods: {
+  test1(){
+     this.$emit('input', '小红')
+  },
+},
+```
 
 
 
