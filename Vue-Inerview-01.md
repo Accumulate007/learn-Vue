@@ -78,7 +78,12 @@ keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状�
 
 -select 字段将 value 作为 prop 并将 change 作为事件
 
+```javascript
+<input v-model='something'>
 
+// 相当于
+<input v-bind:value="something" v-on:input="something = $event.target.value">
+```
 
 
 
