@@ -31,6 +31,7 @@ Vue父子组件生命周期狗子函数分为四种情况：
 
 -4.销毁过程：父 beforeDestroy -> 子 beforeDestroy -> 子 destroyed -> 父 destroyed。
 
+#### 3.父组件中如何监听子组件的生命周期？
 
 
 
