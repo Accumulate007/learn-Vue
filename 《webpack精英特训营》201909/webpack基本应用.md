@@ -98,9 +98,9 @@ module.exports = {
 webpack.config.js中的导出对象，还可以使用函数返回的书写方式。并且这个函数还包含了一些默认的参数，我们可以从这个参数中获取一些配置信息。
 
 并且通过这种方式，我们可以将webpack.config.js拆分成三个文件：
--1)基础配置(base)，对应的文件webpack.base.js
--2)开发环境配置(dev)，对应的文件webpack.dev.js
--3)生产环境配置(prod)，对应的文件webpack.prod.js
+- 1)基础配置(base)，对应的文件webpack.base.js
+- 2)开发环境配置(dev)，对应的文件webpack.dev.js
+- 3)生产环境配置(prod)，对应的文件webpack.prod.js
 我们在项目根目录下新建一个build文件夹，并且将这个三个webpack的配置文件放入到其中。在我们运行webpack的时候，统一去执行webpack.base.js中的配置，该文件中的配置代码如下。
 
 ```javascript
