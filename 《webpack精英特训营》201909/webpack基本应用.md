@@ -141,7 +141,7 @@ module.exports = (env) => {
 ### 五、plugin的使用
 在webpack的配置项中，有一个plugins选项，该选项是一个数组，用于配置项目所需要的插件。plugins中的插件，是按照注册的先后顺序进行执行的，之所以我们要特意说这点，是因为loader的执行顺序恰好是相反的。
 
-#### 5.1使用webpack-dev-server提供本地开发服务
+#### 5.1 使用webpack-dev-server提供本地开发服务
 我们在本地开发的时候，需要有一个本地的静态资源的代理，方便于我们进行开发和调试。webpack-dev-server就是这样一款插件，首先安装它。
 ```javascript
 npm install webpack-dev-server --D
@@ -164,11 +164,39 @@ module.exports = {
     "dev": "webpack-dev-server --env.development --config ./build/webpack.base"
 }
 ```
-这样当我们在命令行工具中运行"npm run dev"就可以启动开发代理了。启动后在浏览器中输入"http://localhost:3000"就可以访问相应的静态资源。
+这样当我们在命令行工具中运行"npm run dev"就可以启动开发代理了。启动后在浏览器中输入 "http://localhost:3000" 就可以访问相应的静态资源。
 
+#### 5.2 使用html-webpack-plugin提供打包模板
+wbepack打包后的文件是一个js文件，我们需要在一个HTML文件中引入这个js文件去使用它。但是目前为止，我们知道webpack打包是无法生成html文件的，这就需要插件来帮助完成这个功能。我们首先安装插件:
+```javascript
+npm install html-webpack-plugin --D
+```
+安装完毕插件之后，我们在项目根目录下创建一个public文件夹，在该文件夹下我们新建一个index.html文件，html-webpack-plugin插件就会以该html文件为基础生成打包后的html文件。
 
+在webpack.base.js中配置使用html-webpack-plugin：
+```javascript
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+module.exports = (env) => {
+  plugins: [
+    new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, '../public/index.html'),  // 设置模板路径
+        filename: 'index.html', // 打包后的文件名
+        minify: {
+          removeAttributeQuotes: true,    // 不用双引号
+          collapseWhitespace: true,   // 折叠成一行
+        }
+     })
+  ]
+}
+```
+其实webpack中plugin的使用都比较类似，分为三步：
 
+1).在配置文件中引入该plugin
+
+2).在plugins选项中new一个插件
+
+3).配置插件的参数
 
 
 
