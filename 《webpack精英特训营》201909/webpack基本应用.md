@@ -136,6 +136,39 @@ module.exports = (env) => {
 ```
 这样我们在命令行中运行"npm run dev"就会执行开发环境下的打包，而运行"npm run build"则会执行生产环境下的打包。
 
+至此，关于webpack的基本使用就介绍完毕。我们之前说了，webpack的使用，其实就是各种loader和plugin的组合使用，在熟悉了webpack的基本配置和使用之后，就可以学习各种loader和plugin的使用来辅助开发和优化应用了。
+
+### 五、plugin的使用
+在webpack的配置项中，有一个plugins选项，该选项是一个数组，用于配置项目所需要的插件。plugins中的插件，是按照注册的先后顺序进行执行的，之所以我们要特意说这点，是因为loader的执行顺序恰好是相反的。
+
+#### 5.1使用webpack-dev-server提供本地开发服务
+我们在本地开发的时候，需要有一个本地的静态资源的代理，方便于我们进行开发和调试。webpack-dev-server就是这样一款插件，首先安装它。
+```javascript
+npm install webpack-dev-server --D
+```
+因为是开发环境下使用的插件，安装完毕之后，我们在webpack.dev.js文件中进行配置。
+```javascript
+const path = require('path');
+
+module.exports = {
+  devServer: {
+    prot: 3000, // 指定端口号
+    compress: true, // 开启gzip，可以提升页面返回速度
+    contentBase: path.resolve(__dirname, '../dist'),   // webpack会代理在dist目录下的资源
+  }
+}
+```
+安装设置完毕之后，我们需要在package.json文件中设置"scripts"如下:
+```javascript
+"scripts": {
+    "dev": "webpack-dev-server --env.development --config ./build/webpack.base"
+}
+```
+这样当我们在命令行工具中运行"npm run dev"就可以启动开发代理了。启动后在浏览器中输入"http://localhost:3000"就可以访问相应的静态资源。
+
+
+
+
 
 
 
