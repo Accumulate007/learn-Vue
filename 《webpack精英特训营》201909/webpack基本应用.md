@@ -200,5 +200,19 @@ module.exports = (env) => {
 
 
 ### 六、loader的使用
-loader的使用
+loader的作用，是将模块原来的内容按照要求转成新的内容。在webpack的配置中，通过module选项对loader进行配置，基本的配置如下：
+```javascript
+module.exports = {
+  module: {
+    rules: [
+      test: /\.css$/, // 匹配需要处理文件的扩展名
+      use: ['style-loader','css-loader'],  // 需要使用的loader
+      include: '../src',  // 手动指定必须处理的文件夹
+      exclude: '../node_modules',     // 手动指定屏蔽不需要处理的文件夹
+      options: {}   // 为loader提供额外的配置
+    ]
+  }
+}
+```
+特别需要注意的是，loader的执行顺序默认是**从下到上，从右到左**。
 
