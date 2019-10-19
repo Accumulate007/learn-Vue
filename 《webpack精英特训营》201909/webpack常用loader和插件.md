@@ -102,15 +102,57 @@ npm install mini-css-extract-plugin --D
 ```
 
 #### 1.4处理样式前缀
+使用postcss-loader增加特定浏览器的样式前缀
+```javascript
+npm install postcss-loader autoprefixer --D
+```
 
+- 使用方式一：在webpack中进行配置
 
+在处理css前先增加前缀
+```javascript
+{
+    test: /\.css$/,
+    use: [
+    !isDev && MiniCssExtractPlugin.loader,
+    isDev && 'style-loader',
+    {
+        loader:"postcss-loader",
+        options:{
+            plugins:[require('autoprefixer')]
+        }
+    },
+    "css-loader",
+    "sass-loader"
+    ].filter(Boolean)
+},
+```
 
+- 使用方式二：创建postcss的配置文件postcss.config.js
+```javascript
+module.exports = {
+  plugins: [
+    require('autoprefixer')
+  ]
+}
+```
 
+#### 1.5压缩CSS文件
+在生产环境下的打包，我们需要对CSS文件进行压缩，减小文件的体积。这需要使用到两个loader
+```javascript
+npm i optimize-css-assets-webpack-plugin terser-webpack-plugin --save-dev
+```
+在webpack.prod.js文件中配置压缩
+```javascript
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
 
-
-
-
-
+{
+  optimization:{
+    minimizer:[new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+  }
+}
+```
 
 
 
