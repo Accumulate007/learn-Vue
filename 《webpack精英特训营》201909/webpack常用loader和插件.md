@@ -154,6 +154,20 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 }
 ```
 
+#### 1.6生成文件hash
+- Hash整个项目的hash值
+- chunkhash 根据入口产生hash值
+- contentHash 根据每个文件的内容产生的hash值
+```javascript
+{
+  plugins: [
+    !isDev && new MiniCssExtractPlugin({
+      filename: "css/[name].[contentHash].css"
+    })
+  ]
+}
+```
+
 
 
 
