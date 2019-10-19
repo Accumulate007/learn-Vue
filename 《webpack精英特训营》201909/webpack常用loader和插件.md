@@ -168,6 +168,66 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 }
 ```
 
+### 2.处理文件类型
+
+#### 2.1处理引用的图片
+```javascript
+{
+  module: {
+    rules: [
+      {
+        test: /\.jpe?g|png|gif/,
+        use: {
+          loader: 'file-loader',
+          optioins: {
+            name:`img/[name].[ext]`
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+#### 2.2处理icon
+```javascript
+{
+  module: {
+    rules: [
+      {
+        test: /woff|ttf|eot|svg|otf/,
+        use: {
+          loader: 'file-loader'
+        }
+      }
+    ]
+  }
+}
+```
+
+#### 2.2将满足条件的小图片转换成base64格式
+```javascript
+{
+  module: {
+    rules: [
+      {
+        test: /\.jpe?g|png|gif/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 100*1024,
+            name: `img/[name].[ext]`
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+
+
+
 
 
 
