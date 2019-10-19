@@ -53,8 +53,55 @@ npm install mini-css-extract-plugin --D
 }
 ```
 
+#### 1.3CSS预处理器
+不同的css预处理器要安装不同的loader来进行解析，常见的有
+- sass: sass-loader node-sass
+- less: less-loader less
+- stylus: stylus-loader stylus
 
+使用sass
+```javascript
+{
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          !isDev && MiniCssExtractPlugin.loader,
+          'style-loader', 
+          'css-loader',
+          'sass-loader'
+          ]
+      }
+    ]
+  }
+}
+```
+在css文件中可能会使用@import语法引用css文件,被引用的css文件中可能还会导入scss
+```javascript
+{
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          !isDev && MiniCssExtractPlugin.loader,
+          'style-loader', 
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders:1 // 引入的文件需要调用sass-loader来处理
+            }
+          },
+          'sass-loader'
+          ]
+      }
+    ]
+  }
+}
+```
 
+#### 1.4处理样式前缀
 
 
 
