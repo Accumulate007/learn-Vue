@@ -225,6 +225,66 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 }
 ```
 
+### 3.处理JS模块
+
+#### 3.1使用babel将ES6编译成ES5
+使用babel编译ES6的代码，需要用到三个插件
+- @babel/core：是babel中的核心模块
+- @babel/preset-env：的作用是es6转化es5插件的插件集合
+- babel-loader是webpack和loader的桥梁
+
+安装完毕后，增加babel的配置文件 .babelrc
+```javascript
+{
+    "presets": [
+       ["@babel/preset-env"]
+    ]
+}
+```
+配置loader
+```javascript
+{
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader'
+        }
+      }
+    ]
+  }
+}
+```
+
+#### 3.2添加ESLint
+安装eslint
+```javascript
+npm i eslint
+
+// 安装完毕后初始化配置文件
+npx eslint --init
+```
+配置loader
+```javascript
+{
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        enforce:"pre",  // 表示在所有loader执行前执行
+        use:'eslint-loader'
+      }
+    ]
+  }
+}
+```
+
+
+
+
+
+
 
 
 
