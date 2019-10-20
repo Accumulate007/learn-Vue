@@ -280,8 +280,20 @@ npx eslint --init
 }
 ```
 
+#### 3.2source-map
+source-map相关字段说明
+- cheap：忽略打包后的列信息，不使用loader中的sourcemap
+- module：没有列信息，使用loader中的sourcemap(没有列信息)
+- eval：生成代码每个模块都被eval执行,每一个打包后的模块后面都增加了包含sourceURL
+- source-map：产生map文件
+- inline：不会生成独立的 .map文件,会以dataURL形式插入
 
-
+在webpack中配置(只在生产环境下的打包生成source-map)
+```javascript
+{
+  devtool: isDev ? 'cheap-module-eval-source-map' : false
+}
+```
 
 
 
