@@ -1,45 +1,67 @@
 一、script和style模块引入方式的区别
+
 在script中引入模块支持使用自定义路径方式:  ‘@/common/js/server’
+
 在style中引入模块需要使用相对路径方式:	‘../../common/css/style’
+
 这是因为script中模块引入是可以通过webpack配置项resolve中的alias参数进行自定义配置的
 而style标签中的内容需要经过style-loader和css-loader进行解析处理，webpack中暂时没有这个配置
 
 
 二、Vue对于标签合法性的验证
+
 实际项目中出的问题:
 <p>this is some words <h3>Title</h3></p>
+
 在p标签中嵌套了h3标签，这是一个不符合w3c标签嵌套规则的写法，所以在编译模板的时候出错，无法编译。
+
 w3c标签嵌套的几大规则为：
+
 a.块级元素与块级元素平级，内联元素与内联元素平级
+
 b.块级元素可以包含内联元素或某些块级元素，内联元素只能包含内联
+
 c.这几个特殊的块级元素只能包含内联元素，不能包含块级元素：h1,h2,h3,h4,h5,h6,p,dt
+
 d.块级元素不能放在p标签里
+
 e.Li标签可以包含div,因为li和div标签都是装载内容的容器
 
 
 三、组件缓存的方式
+
 在Vue中经常会有些页面需要进行缓存，缓存的页面一般是那些实时交互要求不高的，数据请求不频繁的页面。
+
 Vue中的组件缓存需要借助路由元信息meta字段， meta: {keepAlive: true}
+```javascript
 <keep-alive>
   <router-view v-if="$route.meta.keepAlive"></router-view>
 </keep-alive>
+```
 
 
 四、Axios的post传参问题
+
 Axios是Vue官方推荐的ajax库，但是在实际使用中，此库的post方式传参出现了一点问题，按照官方文档的方式进行post传参会报504的状态码错误，这是参数传递的
 问题。这里，post传参需要借助Node的querystring模块进行转化。
+
 列如
+```javascript
 let querystring = require('querystring');
 Axios.post(url, querystring.stringify({
   a: '123',
   b: 'bbb'
 }));
+```
 实际上经过转化后对象形式的params转化成了: a=123&b=bbb
 
 
 五、proxyTable的跨域代理
+
 在实际开发中往往会涉及到跨域问题,Vue-cli提供了跨域代理的支持。
+
 在由Vue-cli生成的项目目录 config -> index.js文件中,有一项 dev 配置项，其下有一个proxyTable的配置参数，具体的配置方式如：
+```javascript
 '/api': {
     target: 'http://192.168.51.34:8080',
     changeOrigin: true,
@@ -47,7 +69,9 @@ Axios.post(url, querystring.stringify({
         '^/api': ''
     }
 }
+```
 然后在项目中使用时就可以用 '/api' 这个字段代替 'http://192.168.51.34:8080',而且可以实现跨域成功。
+
 原理就是，Vue使用了http-proxy-middleware这个插件实现了跨域的代理。
 
 
