@@ -77,28 +77,35 @@ Axios.post(url, querystring.stringify({
 
 六、默认图片的使用方式
 默认图片往往在个人中心用户头像的这个场景下必用的，在图片加载失败的时候可以提供一个替代，提高用户体验。
+
 在Vue中使用默认图片，在script标签中，通过
 const defaultImg = require('../img/header.png')
 的方式引入默认图片，然后就可以在组件中通过 defaultImg 这个常量使用默认图片了。
 
 
 七、数组项变更的不可监测性
+
 Vue中的数据都是动态响应的，这得益于它使用的Object.defineProperty这个方法,把所有data选项上定义的数据都转换成getter和setter，这样就能实现变化数据的
 实时响应。但是，这有一个例外，就是限制于JavaScript的能力，Vue无法对data中数组项的变化进行实时响应。例如
+```javascript
 data: {
- a: 123,
- arr: [1,2,3]
+  a: 123,
+  arr: [1,2,3]
  }
+```
 vm.a 的变化是可以实时响应的,但 vm.arr[0]的变化是无法实时响应的。
 
 
 八、多级嵌套渲染的数据传递问题。
+
 在多级嵌套渲染的需求里,最外层的 v-for="itemWrap in data", itemWrap项可以在内层被引用,所以内层的item需要设置自己的名字,避免命名上的重复进而引发
 问题。
 
 
 九、子组件和父组件向同一个方法传递参数的问题。
+
 具体问题如下：
+
 子组件绑定了一个事件insideHandle,在父组件中监听这个事件: @insideHandle="listen";
 此时listen的参数是由insideHandle传递过来的,但是在父组件中又需要向listen传递一个参数,这个时候就造成了参数传递的冲突,父组件中传递的参数会覆盖掉从子
 组件中派发出来的参数。
@@ -106,10 +113,3 @@ vm.a 的变化是可以实时响应的,但 vm.arr[0]的变化是无法实时响�
 
 
 十、缓存组件的钩子问题。
-
-
-
-
-
-
-
