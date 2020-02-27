@@ -11,7 +11,9 @@
 二、Vue对于标签合法性的验证
 
 实际项目中出的问题:
+```javascript
 <p>this is some words <h3>Title</h3></p>
+```
 
 在p标签中嵌套了h3标签，这是一个不符合w3c标签嵌套规则的写法，所以在编译模板的时候出错，无法编译。
 
@@ -38,7 +40,6 @@ Vue中的组件缓存需要借助路由元信息meta字段， meta: {keepAlive: 
   <router-view v-if="$route.meta.keepAlive"></router-view>
 </keep-alive>
 ```
-
 
 四、Axios的post传参问题
 
